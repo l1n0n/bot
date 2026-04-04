@@ -23,6 +23,6 @@ def greet(message):
 
 @t.message_handler(commands=['schedule'])
 def send_schedule(message):
-    t.send_message(message.chat.id, schedule[datetime.weekday()])
+    t.send_message(message.chat.id, schedule[datetime.now().weekday()])
 
 t.infinity_polling()
