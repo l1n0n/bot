@@ -25,4 +25,11 @@ def start(message):
 def send_schedule(message):
     t.send_message(message.chat.id, schedule[datetime.now().weekday()])
 
+@t.message_handler(commands=['date'])
+def send_date(message):
+    now = datetime.now()
+    weekdays = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье']
+    months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
+    t.send_message(message.chat.id, f'{weekdays[now.weekday()]}, {now.day} {months[now.month - 1]} {now.year}')
+
 t.infinity_polling()
