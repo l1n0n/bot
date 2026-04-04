@@ -1,0 +1,14 @@
+[Unit]
+Description=Telegram Bot
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/path/to/bot
+ExecStart=/usr/bin/python3 work.py
+EnvironmentFile=/path/to/bot/.env
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

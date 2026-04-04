@@ -1,10 +1,14 @@
-from telebot import *
+import os
+from telebot import TeleBot
+from dotenv import load_dotenv
 
-t = TeleBot('6015308173:AAEAnP8IYiwrayHSR8Hl2zuRgRalYYd9sn4')
+load_dotenv()
+
+t = TeleBot(os.getenv('BOT_TOKEN'))
 
 
 @t.message_handler(commands=['start'])
-def send_welcome(message):
+def send_woliday(message):
     t.send_message(message.chat.id, "Привет! 👋")
 
 
