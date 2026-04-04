@@ -12,7 +12,7 @@ schedule = ['09:00-10:30 DSA Lecture\n10:40-12:10 DSA Tutorial\n12:40-14:10 DSA 
             '09:00-10:30 Math Analysis Lecture\n10:40-12:10 Math Analysis Tutorial\n12:40-14:10 Math Analysis Lab\n16:00-17:30: AWA',
             '09:00-10:30 TCS Lecture\n10:40-12:10 TCS Tutorial\n12:40-14:10 TCS Lab\n16:30-18:00: Table Tennis Training',
             '09:00-10:30 SSAD Lecture\n10:40-12:10 SSAD Tutorial\n14:20-15:50 SSAD Lab\n16:30-18:00: Table Tennis Training',
-            '09:00-10:30 AGLA Lecture\n10:40-12:10 AGLA Tutorial\n12:40-14:10 AGLA Lab\n',
+            '09:00-10:30 AGLA Lecture\n10:40-12:10 AGLA Tutorial\n12:40-14:10 AGLA Lab',
             '10:40-14:10 Software Engineering Toolkit',
             '11:30-13:00 Table Tennis Tournament']
 
@@ -30,6 +30,6 @@ def send_date(message):
     now = datetime.now()
     weekdays = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье']
     months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
-    t.send_message(message.chat.id, f'{weekdays[now.weekday()]}, {now.day} {months[now.month - 1]} {now.year}')
+    t.send_message(message.chat.id, f'{weekdays[now.weekday()]}, {now.day} {months[now.month - 1]} {now.year} {now.hour} {now.minute} {now.second}')
 
 t.infinity_polling()
