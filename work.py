@@ -1,30 +1,11 @@
 import os
-import sys
-import logging
 from random import *
-from telebot import TeleBot, types
+from telebot import TeleBot
 from dotenv import load_dotenv
 from datetime import datetime
 
-# Настройка логирования
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    stream=sys.stdout
-)
-logger = logging.getLogger(__name__)
-
 load_dotenv()
-
-# Проверка токена
-token = os.getenv('BOT_TOKEN')
-if not token:
-    logger.error("BOT_TOKEN не найден в .env файле!")
-    sys.exit(1)
-
-logger.info(f"Запуск бота...")
-t = TeleBot(token)
-logger.info("Бот успешно инициализирован")
+t = TeleBot(os.getenv('BOT_TOKEN'))
 
 schedule = [
     '09:00-10:30 DSA Lecture\n10:40-12:10 DSA Tutorial\n12:40-14:10 DSA Lab\n16:00-17:30: AWA',
@@ -36,7 +17,7 @@ schedule = [
     '11:30-13:00 Table Tennis Tournament'
 ]
 
-weekdays = 'Понедельник Вторник Среда Четверг Пятница Суббота Воскресенье'
+weekdays = 'Понедельник Вторник Среда Четверг Пятница Суббота Воскресенье'.split()
 
 def toString(d: datetime):
     return f'{weekdays[d.weekday()]}, {d.day}.{d.month}.{d.year}, {d.hour}:{d.minute}:{d.second}' 
