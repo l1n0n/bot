@@ -32,6 +32,6 @@ def send_schedule(message):
 
 @t.message_handler(commands=['date'])
 def send_date(message):
-    t.send_message(message.chat.id, str(weekdays))
+    t.send_message(message.chat.id, toString(datetime.now()))
 
 t.infinity_polling()
