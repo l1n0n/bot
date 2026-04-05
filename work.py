@@ -30,8 +30,10 @@ CHANNEL = '@mvnntl_t_nthr_cntr'
 def is_subscribed(user_id):
     try:
         member = t.get_chat_member(CHANNEL, user_id)
+        print(f"User {user_id} status: {member.status}")
         return member.status in ['member', 'administrator', 'creator']
-    except:
+    except Exception as e:
+        print(f"Error checking subscription: {e}")
         return False
 
 def check_subscription(message):
