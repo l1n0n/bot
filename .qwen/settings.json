@@ -6,7 +6,9 @@
       "Bash(git rm *)",
       "Bash(git push *)",
       "Bash(git stash *)",
-      "Bash(git *)"
+      "Bash(git *)",
+      "Bash(fc *)",
+      "Bash(del *)"
     ]
   },
   "$version": 3
