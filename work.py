@@ -27,9 +27,7 @@ def toString(d: datetime):
 
 @t.message_handler(commands=['start'])
 def start(message):
-    while True:
-        t.send_message(message.chat.id, "Привет! Чтобы я показывал правильное время, пришли мне свою геопозицию (кнопка в меню), а затем используй /date или /schedule.")
-        sleep(0.75)
+    t.send_message(message.chat.id, "Привет! Чтобы я показывал правильное время, пришли мне свою геопозицию (кнопка в меню), а затем используй /date или /schedule.")
 
 @t.message_handler(commands=['schedule'])
 def send_schedule(message):
