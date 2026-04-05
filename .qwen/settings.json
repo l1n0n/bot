@@ -8,7 +8,16 @@
       "Bash(git stash *)",
       "Bash(git *)",
       "Bash(fc *)",
-      "Bash(del *)"
+      "Bash(del *)",
+      "Bash(docker-compose *)",
+      "Bash(tasklist)",
+      "Bash(findstr *)",
+      "Bash(python *)",
+      "Bash(timeout *)",
+      "Bash(taskkill *)",
+      "Bash(type *)",
+      "Bash(ssh *)",
+      "Bash(c:\\users\\линар\\bot\\check_vm.bat)"
     ]
   },
   "$version": 3

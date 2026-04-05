@@ -1,14 +1,30 @@
 import os
+import sys
+import logging
 from random import *
 from telebot import TeleBot, types
 from dotenv import load_dotenv
 from datetime import datetime
-from zoneinfo import ZoneInfo
-from timezonefinder import TimezoneFinder
+
+# Настройка логирования
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    stream=sys.stdout
+)
+logger = logging.getLogger(__name__)
 
 load_dotenv()
 
-t = TeleBot(os.getenv('BOT_TOKEN'))
+# Проверка токена
+token = os.getenv('BOT_TOKEN')
+if not token:
+    logger.error("BOT_TOKEN не найден в .env файле!")
+    sys.exit(1)
+
+logger.info(f"Запуск бота...")
+t = TeleBot(token)
+logger.info("Бот успешно инициализирован")
 
 schedule = [
     '09:00-10:30 DSA Lecture\n10:40-12:10 DSA Tutorial\n12:40-14:10 DSA Lab\n16:00-17:30: AWA',
@@ -22,10 +38,14 @@ schedule = [
 
 @t.message_handler(commands=['start'])
 def start(message):
+    logger.info(f"Пользователь {message.from_user.id} отправил /start")
     t.send_message(message.chat.id, "Привет! Чтобы я показывал правильное время, пришли мне свою геопозицию (кнопка в меню), а затем используй /date или /schedule.")
 
 @t.message_handler(commands=['schedule'])
 def send_schedule(message):
+    logger.info(f"Пользователь {message.from_user.id} отправил /schedule")
     t.send_message(message.chat.id, schedule[datetime.now().weekday()])
 
+logger.info("Запуск polling...")
+print("Бот запущен! Ожидание сообщений...", flush=True)
 t.infinity_polling()

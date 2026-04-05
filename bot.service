@@ -4,9 +4,9 @@ After=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=/path/to/bot
+WorkingDirectory=/home/operator/bot
 ExecStart=/usr/bin/python3 work.py
-EnvironmentFile=/path/to/bot/.env
+EnvironmentFile=/home/operator/bot/.env
 Restart=always
 RestartSec=5
 
