@@ -20,7 +20,9 @@ schedule = [
 weekdays = 'Понедельник Вторник Среда Четверг Пятница Суббота Воскресенье'.split()
 
 def toString(d: datetime):
-    return f'{weekdays[d.weekday()]}, {d.day}.{d.month}.{d.year}, {d.hour}:{d.minute}:{d.second}' 
+    return f'''На данный момент на моем сервере время
+{weekdays[d.weekday()]}, {d.day}.{d.month}.{d.year}, {d.hour}:{d.minute}:{d.second}
+''' 
 
 @t.message_handler(commands=['start'])
 def start(message):
