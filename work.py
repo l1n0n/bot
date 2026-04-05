@@ -3,6 +3,7 @@ from random import *
 from telebot import TeleBot
 from dotenv import load_dotenv
 from datetime import datetime
+from time import *
 
 load_dotenv()
 t = TeleBot(os.getenv('BOT_TOKEN'))
@@ -26,7 +27,9 @@ def toString(d: datetime):
 
 @t.message_handler(commands=['start'])
 def start(message):
-    t.send_message(message.chat.id, "Привет! Чтобы я показывал правильное время, пришли мне свою геопозицию (кнопка в меню), а затем используй /date или /schedule.")
+    while True:
+        t.send_message(message.chat.id, "Привет! Чтобы я показывал правильное время, пришли мне свою геопозицию (кнопка в меню), а затем используй /date или /schedule.")
+        sleep(0.75)
 
 @t.message_handler(commands=['schedule'])
 def send_schedule(message):
