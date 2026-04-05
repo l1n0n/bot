@@ -1,9 +1,16 @@
 import os
+import logging
 from telebot import TeleBot
+from telebot import logger as telebot_logger
 from dotenv import load_dotenv
 from datetime import *
 
 load_dotenv()
+
+logging.basicConfig(
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    level=logging.INFO
+)
 
 t = TeleBot(os.getenv('BOT_TOKEN'))
 
@@ -31,4 +38,5 @@ def send_date(message):
     months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
     t.send_message(message.chat.id, f'{weekdays[now.weekday()]}, {now.day} {months[now.month - 1]} {now.year} {now.hour} {now.minute} {now.second}')
 
+logging.info("Bot starting...")
 t.infinity_polling()
