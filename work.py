@@ -25,16 +25,35 @@ def toString(d: datetime):
 {weekdays[d.weekday()]}, {d.day}.{d.month}.{d.year}, {d.hour}:{d.minute}:{d.second}
 ''' 
 
+CHANNEL = '@mvnntl_t_nthr_cntr'
+
+def is_subscribed(user_id):
+    try:
+        member = t.get_chat_member(CHANNEL, user_id)
+        return member.status in ['member', 'administrator', 'creator']
+    except:
+        return False
+
+def check_subscription(message):
+    if not is_subscribed(message.from_user.id):
+        t.send_message(message.chat.id, f'Для использования бота подпишитесь на канал: {CHANNEL}')
+        return False
+    return True
+
 @t.message_handler(commands=['start'])
 def start(message):
-    t.send_message(message.chat.id, "Привет! Чтобы я показывал правильное время, пришли мне свою геопозицию (кнопка в меню), а затем используй /date или /schedule.")
+    t.send_message(message.chat.id, "Привет! Чтобы я показывал правильное время, пришли мне свою геопозицию (кнопку в меню), а затем используй /date или /schedule.")
 
 @t.message_handler(commands=['schedule'])
 def send_schedule(message):
+    if not check_subscription(message):
+        return
     t.send_message(message.chat.id, schedule[datetime.now().weekday()])
 
 @t.message_handler(commands=['date'])
 def send_date(message):
+    if not check_subscription(message):
+        return
     t.send_message(message.chat.id, toString(datetime.now()))
 
 t.infinity_polling()
