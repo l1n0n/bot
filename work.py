@@ -36,16 +36,21 @@ schedule = [
     '11:30-13:00 Table Tennis Tournament'
 ]
 
+weekdays = 'Понедельник Вторник Среда Четверг Пятница Суббота Воскресенье'
+
+def toString(d: datetime):
+    return f'{weekdays[d.weekday()]}, {d.day}.{d.month}.{d.year}, {d.hour}:{d.minute}:{d.second}' 
+
 @t.message_handler(commands=['start'])
 def start(message):
-    logger.info(f"Пользователь {message.from_user.id} отправил /start")
     t.send_message(message.chat.id, "Привет! Чтобы я показывал правильное время, пришли мне свою геопозицию (кнопка в меню), а затем используй /date или /schedule.")
 
 @t.message_handler(commands=['schedule'])
 def send_schedule(message):
-    logger.info(f"Пользователь {message.from_user.id} отправил /schedule")
     t.send_message(message.chat.id, schedule[datetime.now().weekday()])
 
-logger.info("Запуск polling...")
-print("Бот запущен! Ожидание сообщений...", flush=True)
+@t.message_handler(commands=['date'])
+def send_schedule(message):
+    t.send_message(message.chat.id, toString(datetime.now()))
+
 t.infinity_polling()
