@@ -64,8 +64,8 @@ def send_date(message):
     date_str = f"{weekdays[now.weekday()]}, {now.day} {months[now.month - 1]} {now.year} {now.strftime('%H:%M:%S')}"
     t.send_message(chat_id, date_str)
 
-@t.message_handler(commands='rand')
+@t.message_handler(commands=['rand'])
 def send_random(message):
-    t.send_message(message.chat_id, f'Random number: {randint(1,10)}')
+    t.send_message(message.chat.id, f'Random number: {randint(1,10)}')
 
 t.infinity_polling()
