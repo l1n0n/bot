@@ -21,7 +21,7 @@ schedule = [
 weekdays = 'Понедельник Вторник Среда Четверг Пятница Суббота Воскресенье'.split()
 
 def toString(d: datetime):
-    return f'''На данный момент на моем сервере время
+    return f'''Сейчас в Иннополисе:
 {weekdays[d.weekday()]}, {d.day}.{d.month}.{d.year}, {d.hour}:{d.minute}:{d.second}
 ''' 
 
@@ -50,7 +50,7 @@ def start(message):
 def send_schedule(message):
     if not check_subscription(message):
         return
-    old = (datetime.now() - datetime(1970, 1, 1, 0, 0, 0, 0)).total_seconds()
+    old = (datetime.now() - datetime(1970, 1, 1, 0, 0, 0, 0)).total_seconds() + 10800
     new = datetime.fromtimestamp(old)
     t.send_message(message.chat.id, schedule[new.weekday()])
 
@@ -58,6 +58,8 @@ def send_schedule(message):
 def send_date(message):
     if not check_subscription(message):
         return
-    t.send_message(message.chat.id, toString(datetime.now()))
+    old = (datetime.now() - datetime(1970, 1, 1, 0, 0, 0, 0)).total_seconds() + 10800
+    new = datetime.fromtimestamp(old)
+    t.send_message(message.chat.id, toString(old.now()))
 
 t.infinity_polling()
