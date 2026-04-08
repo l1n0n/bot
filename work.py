@@ -60,6 +60,6 @@ def send_date(message):
         return
     old = (datetime.now() - datetime(1970, 1, 1, 0, 0, 0, 0)).total_seconds() + 10800
     new = datetime.fromtimestamp(old)
-    t.send_message(message.chat.id, toString(old))
+    t.send_message(message.chat.id, toString(new))
 
 t.infinity_polling()
