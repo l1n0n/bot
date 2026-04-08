@@ -50,7 +50,9 @@ def start(message):
 def send_schedule(message):
     if not check_subscription(message):
         return
-    t.send_message(message.chat.id, schedule[datetime.now().weekday()])
+    old = (datetime.now() - datetime(1970, 1, 1, 0, 0, 0, 0)).total_seconds()
+    new = datetime.fromtimestamp(old)
+    t.send_message(message.chat.id, schedule[new.weekday()])
 
 @t.message_handler(commands=['date'])
 def send_date(message):
