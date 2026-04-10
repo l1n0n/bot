@@ -213,6 +213,7 @@ def check_subscription(message):
 def getCorrectDate():
     old = (datetime.now() - datetime(1970, 1, 1, 0, 0, 0, 0)).total_seconds() + 10800
     new = datetime.fromtimestamp(old)
+    new = datetime(2026, 4, 11)
     return new
 
 @t.message_handler(commands=['start'])
