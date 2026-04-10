@@ -35,7 +35,7 @@ class Monday:
         return res
     
 
-class Tuesday:
+"""class Tuesday:
     schedule = [{'start': {'hours': '09', 'minutes': '00'}, 'end': {'hours': '10', 'minutes': '30'}, 'name': 'SSAD Lecture'},
                 {'start': {'hours': '10', 'minutes': '40'}, 'end': {'hours': '12', 'minutes': '10'}, 'name': 'SSAD Tutorial'},
                 {'start': {'hours': '14', 'minutes': '20'}, 'end': {'hours': '15', 'minutes': '50'}, 'name': 'SSAD Lab'},
@@ -186,17 +186,18 @@ class Sunday:
             else:
                 res = res + '❌' + Sunday.lessonToString(lesson) + '\n'
         return res
-    
+    """
 
 days = {
-    0: Monday(),
-    1: Tuesday(),
+    0: Monday()
+    }
+'''1: Tuesday(),
     2: Wednesday(),
     3: Thursday(),
     4: Friday(),
     5: Saturday(),
-    6: Sunday()
-}
+    6: Sunday()'''
+
 
 weekdays = 'Понедельник Вторник Среда Четверг Пятница Суббота Воскресенье'.split()
 
