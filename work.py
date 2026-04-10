@@ -223,7 +223,7 @@ def start(message):
 def send_schedule(message):
     if not check_subscription(message):
         return
-    t.send_message(message.chat.id, schedule[getCorrectDate().weekday()].showSchedule())
+    t.send_message(message.chat.id, schedule[getCorrectDate().weekday()].show_schedule())
 
 @t.message_handler(commands=['date'])
 def send_date(message):
