@@ -34,7 +34,7 @@ class Monday:
             else:
                 res = res + '❌' + Monday.lessonToString(lesson) + '\n'
                 dayIsOver = False
-        return res + '\nЗанятия закончились' if dayIsOver else res
+        return res + '\nНа сегодня занятия закончились! 🥳' if dayIsOver else res
     
 
 class Tuesday:
@@ -65,7 +65,7 @@ class Tuesday:
             else:
                 res = res + '❌' + Tuesday.lessonToString(lesson) + '\n'
                 dayIsOver = False
-        return res + '\nЗанятия закончились' if dayIsOver else res
+        return res + '\nНа сегодня занятия закончились! 🥳' if dayIsOver else res
 
 
 class Wednesday:
@@ -93,7 +93,7 @@ class Wednesday:
             else:
                 res = res + '❌' + Wednesday.lessonToString(lesson) + '\n'
                 dayIsOver = False
-        return res + '\nЗанятия закончились' if dayIsOver else res
+        return res + '\nНа сегодня занятия закончились! 🥳' if dayIsOver else res
     
 
 class Thursday:
@@ -124,7 +124,7 @@ class Thursday:
             else:
                 res = res + '❌' + Thursday.lessonToString(lesson) + '\n'
                 dayIsOver = False
-        return res + '\nЗанятия закончились' if dayIsOver else res
+        return res + '\nНа сегодня занятия закончились! 🥳' if dayIsOver else res
     
 
 class Friday:
@@ -151,7 +151,7 @@ class Friday:
             else:
                 res = res + '❌' + Friday.lessonToString(lesson) + '\n'
                 dayIsOver = False
-        return res + '\nЗанятия закончились' if dayIsOver else res
+        return res + '\nНа сегодня занятия закончились! 🥳' if dayIsOver else res
     
 
 class Saturday:
@@ -175,7 +175,7 @@ class Saturday:
             else:
                 res = res + '❌' + Saturday.lessonToString(lesson) + '\n'
                 dayIsOver = False
-        return res + '\nЗанятия закончились' if dayIsOver else res
+        return res + '\nНа сегодня занятия закончились! 🥳' if dayIsOver else res
     
 
 class Sunday:
@@ -199,7 +199,7 @@ class Sunday:
             else:
                 res = res + '❌' + Sunday.lessonToString(lesson) + '\n'
                 dayIsOver = False
-        return res + '\nЗанятия закончились' if dayIsOver else res
+        return res + '\nНа сегодня занятия закончились! 🥳' if dayIsOver else res
 
 days = {
     0: Monday(),
@@ -237,7 +237,6 @@ def check_subscription(message):
 def getCorrectDate():
     old = (datetime.now() - datetime(1970, 1, 1, 0, 0, 0, 0)).total_seconds() + 10800
     new = datetime.fromtimestamp(old)
-    new  = datetime(2026, 4, 10, 10, 40)
     return new
 
 @t.message_handler(commands=['start'])
