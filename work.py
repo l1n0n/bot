@@ -24,14 +24,17 @@ class Monday:
 
     def show_schedule(self, current):
         res = ''
+        dayIsOver = True
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Monday.lessonToString(lesson) + '\n'
             elif int(lesson['start']['hours']) * 3600 + int(lesson['start']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second < int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60:
                 res = res + '🧑‍💻' + Monday.lessonToString(lesson) + '\n'
+                dayIsOver = False
             else:
                 res = res + '❌' + Monday.lessonToString(lesson) + '\n'
-        return res
+                dayIsOver = False
+        return res + '\nЗанятия закончились' if dayIsOver else res
     
 
 class Tuesday:
@@ -49,6 +52,7 @@ class Tuesday:
 
     def show_schedule(self, current):
         res = ''
+        dayIsOver = True
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Tuesday.lessonToString(lesson) + '\n'
@@ -57,9 +61,11 @@ class Tuesday:
                     res = res + '🧑‍💻' + Tuesday.lessonToString(lesson) + '\n'
                 else:
                     res = res + '🏓' + Tuesday.lessonToString(lesson) + '\n'
+                dayIsOver = False
             else:
                 res = res + '❌' + Tuesday.lessonToString(lesson) + '\n'
-        return res
+                dayIsOver = False
+        return res + '\nЗанятия закончились' if dayIsOver else res
 
 
 class Wednesday:
@@ -77,14 +83,17 @@ class Wednesday:
 
     def show_schedule(self, current) -> str:
         res = ''
+        dayIsOver = True
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Wednesday.lessonToString(lesson) + '\n'
             elif int(lesson['start']['hours']) * 3600 + int(lesson['start']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second < int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60:
                 res = res + '🧑‍💻' + Wednesday.lessonToString(lesson) + '\n'
+                dayIsOver = False
             else:
                 res = res + '❌' + Wednesday.lessonToString(lesson) + '\n'
-        return res
+                dayIsOver = False
+        return res + '\nЗанятия закончились' if dayIsOver else res
     
 
 class Thursday:
@@ -102,6 +111,7 @@ class Thursday:
 
     def show_schedule(self, current):
         res = ''
+        dayIsOver = True
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Thursday.lessonToString(lesson) + '\n'
@@ -110,9 +120,11 @@ class Thursday:
                     res = res + '🧑‍💻' + Thursday.lessonToString(lesson) + '\n'
                 else:
                     res = res + '🏓' + Thursday.lessonToString(lesson) + '\n'
+                dayIsOver = False
             else:
                 res = res + '❌' + Thursday.lessonToString(lesson) + '\n'
-        return res
+                dayIsOver = False
+        return res + '\nЗанятия закончились' if dayIsOver else res
     
 
 class Friday:
@@ -129,14 +141,17 @@ class Friday:
 
     def show_schedule(self, current):
         res = ''
+        dayIsOver = True
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Friday.lessonToString(lesson) + '\n'
             elif int(lesson['start']['hours']) * 3600 + int(lesson['start']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second < int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60:
                 res = res + '🧑‍💻' + Friday.lessonToString(lesson) + '\n'
+                dayIsOver = False
             else:
                 res = res + '❌' + Friday.lessonToString(lesson) + '\n'
-        return res
+                dayIsOver = False
+        return res + '\nЗанятия закончились' if dayIsOver else res
     
 
 class Saturday:
@@ -150,14 +165,17 @@ class Saturday:
 
     def show_schedule(self, current: datetime):
         res = ''
+        dayIsOver = True
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Saturday.lessonToString(lesson) + '\n'
             elif int(lesson['start']['hours']) * 3600 + int(lesson['start']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second < int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60:
                 res = res + '🧑‍💻' + Saturday.lessonToString(lesson) + '\n'
+                dayIsOver = False
             else:
                 res = res + '❌' + Saturday.lessonToString(lesson) + '\n'
-        return res
+                dayIsOver = False
+        return res + '\nЗанятия закончились' if dayIsOver else res
     
 
 class Sunday:
@@ -171,14 +189,17 @@ class Sunday:
 
     def show_schedule(self, current):
         res = ''
+        dayIsOver = True
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Sunday.lessonToString(lesson) + '\n'
             elif int(lesson['start']['hours']) * 3600 + int(lesson['start']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second < int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60:
                 res = res + '🏓' + Sunday.lessonToString(lesson) + '\n'
+                dayIsOver = False
             else:
                 res = res + '❌' + Sunday.lessonToString(lesson) + '\n'
-        return res
+                dayIsOver = False
+        return res + '\nЗанятия закончились' if dayIsOver else res
 
 days = {
     0: Monday(),
