@@ -24,7 +24,6 @@ class Monday:
 
     def show_schedule(self, current):
         res = ''
-        res = res + str(weekdays[current.weekday()]) + ' ' + str(current.day) + ' ' + str(current.month) + ' ' + str(current.year) + ' ' + str(current.hour) + ' ' + str(current.minute) + '\n'
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Monday.lessonToString(lesson) + '\n'
@@ -50,7 +49,6 @@ class Tuesday:
 
     def show_schedule(self, current):
         res = ''
-        res = res + str(weekdays[current.weekday()]) + ' ' + str(current.day) + ' ' + str(current.month) + ' ' + str(current.year) + ' ' + str(current.hour) + ' ' + str(current.minute) + '\n'
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Tuesday.lessonToString(lesson) + '\n'
@@ -79,7 +77,6 @@ class Wednesday:
 
     def show_schedule(self, current) -> str:
         res = ''
-        res = res + str(weekdays[current.weekday()]) + ' ' + str(current.day) + ' ' + str(current.month) + ' ' + str(current.year) + ' ' + str(current.hour) + ' ' + str(current.minute) + '\n'
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Wednesday.lessonToString(lesson) + '\n'
@@ -105,7 +102,6 @@ class Thursday:
 
     def show_schedule(self, current):
         res = ''
-        res = res + str(weekdays[current.weekday()]) + ' ' + str(current.day) + ' ' + str(current.month) + ' ' + str(current.year) + ' ' + str(current.hour) + ' ' + str(current.minute) + '\n'
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Thursday.lessonToString(lesson) + '\n'
@@ -120,7 +116,7 @@ class Thursday:
     
 
 class Friday:
-    schedule = [{'start': {'hours': '09', 'minutes': '00'}, 'end': {'hours': '10', 'minutes': '30'}, 'name': 'AGLA Lecture'},
+    schedule = [{'start': {'hours': '09', 'minutes': '00'}, 'end': {'hours': '10', 'minutes': '30'}, 'name': 'AGLA Lecture'}
                 {'start': {'hours': '10', 'minutes': '40'}, 'end': {'hours': '12', 'minutes': '10'}, 'name': 'AGLA Tutorial'},
                 {'start': {'hours': '12', 'minutes': '40'}, 'end': {'hours': '14', 'minutes': '10'}, 'name': 'AGLA Lab'}
                 ]
@@ -133,7 +129,6 @@ class Friday:
 
     def show_schedule(self, current):
         res = ''
-        res = res + str(weekdays[current.weekday()]) + ' ' + str(current.day) + ' ' + str(current.month) + ' ' + str(current.year) + ' ' + str(current.hour) + ' ' + str(current.minute) + '\n'
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Friday.lessonToString(lesson) + '\n'
@@ -155,7 +150,6 @@ class Saturday:
 
     def show_schedule(self, current: datetime):
         res = ''
-        res = res + str(weekdays[current.weekday()]) + ' ' + str(current.day) + ' ' + str(current.month) + ' ' + str(current.year) + ' ' + str(current.hour) + ' ' + str(current.minute) + '\n'
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Saturday.lessonToString(lesson) + '\n'
@@ -177,7 +171,6 @@ class Sunday:
 
     def show_schedule(self, current):
         res = ''
-        res = res + str(weekdays[current.weekday()]) + ' ' + str(current.day) + ' ' + str(current.month) + ' ' + str(current.year) + ' ' + str(current.hour) + ' ' + str(current.minute) + '\n'
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Sunday.lessonToString(lesson) + '\n'
@@ -223,12 +216,11 @@ def check_subscription(message):
 def getCorrectDate():
     old = (datetime.now() - datetime(1970, 1, 1, 0, 0, 0, 0)).total_seconds() + 10800
     new = datetime.fromtimestamp(old)
-    new = datetime(2026, 4, randint(1, 30), randint(0, 23), randint(0, 59))
     return new
 
 @t.message_handler(commands=['start'])
 def start(message):
-    t.send_message(message.chat.id, "Привет! Чтобы я показывал правильное время, пришли мне свою геопозицию (кнопку в меню), а затем используй /date или /schedule.")
+    t.send_message(message.chat.id, "Привет! Я бот, который может показывать сегодняшнее расписание лекций в Университете Иннополис.\nЧтобы узнать сегодняшнюю дату, нажмите сюда: /date\nЧтобы узнать сегодняшнее расписание, нажмите сюда: /schedule")
 
 @t.message_handler(commands=['schedule'])
 def send_schedule(message):
@@ -243,4 +235,8 @@ def send_date(message):
         return
     t.send_message(message.chat.id, toString(getCorrectDate()))
 
+def updated(message):
+    t.send_message(message.chat.id, 'Бот обновлен')
+
+updated()
 t.infinity_polling()
