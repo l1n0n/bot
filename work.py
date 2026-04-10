@@ -190,7 +190,7 @@ weekdays = 'Понедельник Вторник Среда Четверг Пя
 
 def toString(d: datetime):
     return f'''Сейчас в Иннополисе:
-{weekdays[d.weekday()]}, {d.day}.{d.month}.{d.year}, {d.hour}:{d.minute}:{d.second}
+{weekdays[d.weekday()]}, {d.day:02d}.{d.month:02d}.{d.year}, {d.hour:02d}:{d.minute:02d}:{d.second:02d}
 ''' 
 
 CHANNEL = '@mvnntl_t_nthr_cntr'
