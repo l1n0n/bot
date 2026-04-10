@@ -8,15 +8,181 @@ from time import *
 load_dotenv()
 t = TeleBot(os.getenv('BOT_TOKEN'))
 
-schedule = [
-    '09:00-10:30 DSA Lecture\n10:40-12:10 DSA Tutorial\n12:40-14:10 DSA Lab\n16:00-17:30: AWA',
+
+class Monday:
+    schedule = [{'start': {'hours': '09', 'minutes': '00'}, 'end': {'hours': '10', 'minutes': '30'}, 'name': 'DSA Lecture'},
+                {'start': {'hours': '10', 'minutes': '40'}, 'end': {'hours': '12', 'minutes': '10'}, 'name': 'DSA Tutorial'},
+                {'start': {'hours': '12', 'minutes': '40'}, 'end': {'hours': '14', 'minutes': '10'}, 'name': 'DSA Lab'},
+                {'start': {'hours': '16', 'minutes': '00'}, 'end': {'hours': '17', 'minutes': '30'}, 'name': 'AWA'}
+                ]
+    def __init__(self):
+        pass
+
+    @staticmethod
+    def lessonToString():
+        return f'{schedule['start']['hours']}:{schedule['start']['minutes']}-{schedule['end']['hours']}:{schedule['end']['minutes']}: {schedule['name']}'
+
+    def show_schedule(self):
+        res = ''
+        current = getCorrectDate()
+        for lesson in self.schedule:
+            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 > current.hour * 3600 + current.minutes * 60 + current.second:
+                res = res + '✅' + Monday.lessonToString() + '\n'
+            else:
+                res = res + '❌' + Monday.lessonToString() + '\n'
+        return res
+    
+
+class Tuesday:
+    schedule = [{'start': {'hours': '09', 'minutes': '00'}, 'end': {'hours': '10', 'minutes': '30'}, 'name': 'SSAD Lecture'},
+                {'start': {'hours': '10', 'minutes': '40'}, 'end': {'hours': '12', 'minutes': '10'}, 'name': 'SSAD Tutorial'},
+                {'start': {'hours': '14', 'minutes': '20'}, 'end': {'hours': '15', 'minutes': '50'}, 'name': 'SSAD Lab'},
+                {'start': {'hours': '16', 'minutes': '30'}, 'end': {'hours': '18', 'minutes': '00'}, 'name': 'Table Tennis Training'}
+                ]
+    def __init__(self):
+        pass
+
+    @staticmethod
+    def lessonToString():
+        return f'{schedule['start']['hours']}:{schedule['start']['minutes']}-{schedule['end']['hours']}:{schedule['end']['minutes']}: {schedule['name']}'
+
+    def show_schedule(self):
+        res = ''
+        current = getCorrectDate()
+        for lesson in self.schedule:
+            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 > current.hour * 3600 + current.minutes * 60 + current.second:
+                res = res + '✅' + Tuesday.lessonToString() + '\n'
+            else:
+                res = res + '❌' + Tuesday.lessonToString() + '\n'
+        return res
+
+
+class Wednesday:
+    schedule = [{'start': {'hours': '09', 'minutes': '00'}, 'end': {'hours': '10', 'minutes': '30'}, 'name': 'Math Analysis Lecture'},
+                {'start': {'hours': '10', 'minutes': '40'}, 'end': {'hours': '12', 'minutes': '10'}, 'name': 'Math Analysis Tutorial'},
+                {'start': {'hours': '12', 'minutes': '40'}, 'end': {'hours': '14', 'minutes': '10'}, 'name': 'Math Analysis Lab'},
+                {'start': {'hours': '16', 'minutes': '00'}, 'end': {'hours': '17', 'minutes': '30'}, 'name': 'AWA'}
+                ]
+    def __init__(self):
+        pass
+
+    @staticmethod
+    def lessonToString():
+        return f'{schedule['start']['hours']}:{schedule['start']['minutes']}-{schedule['end']['hours']}:{schedule['end']['minutes']}: {schedule['name']}'
+
+    def show_schedule(self):
+        res = ''
+        current = getCorrectDate()
+        for lesson in self.schedule:
+            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 > current.hour * 3600 + current.minutes * 60 + current.second:
+                res = res + '✅' + Wednesday.lessonToString() + '\n'
+            else:
+                res = res + '❌' + Wednesday.lessonToString() + '\n'
+        return res
+    
+
+class Thursday:
+    schedule = [{'start': {'hours': '09', 'minutes': '00'}, 'end': {'hours': '10', 'minutes': '30'}, 'name': 'TCS Lecture'},
+                {'start': {'hours': '10', 'minutes': '40'}, 'end': {'hours': '12', 'minutes': '10'}, 'name': 'TCS Tutorial'},
+                {'start': {'hours': '12', 'minutes': '40'}, 'end': {'hours': '14', 'minutes': '10'}, 'name': 'TCS Lab'},
+                {'start': {'hours': '16', 'minutes': '30'}, 'end': {'hours': '18', 'minutes': '00'}, 'name': 'Table Tennis Training'}
+                ]
+    def __init__(self):
+        pass
+
+    @staticmethod
+    def lessonToString():
+        return f'{schedule['start']['hours']}:{schedule['start']['minutes']}-{schedule['end']['hours']}:{schedule['end']['minutes']}: {schedule['name']}'
+
+    def show_schedule(self):
+        res = ''
+        current = getCorrectDate()
+        for lesson in self.schedule:
+            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 > current.hour * 3600 + current.minutes * 60 + current.second:
+                res = res + '✅' + Thursday.lessonToString() + '\n'
+            else:
+                res = res + '❌' + Thursday.lessonToString() + '\n'
+        return res
+    
+
+class Friday:
+    schedule = [{'start': {'hours': '09', 'minutes': '00'}, 'end': {'hours': '10', 'minutes': '30'}, 'name': 'AGLA Lecture'},
+                {'start': {'hours': '10', 'minutes': '40'}, 'end': {'hours': '12', 'minutes': '10'}, 'name': 'AGLA Tutorial'},
+                {'start': {'hours': '12', 'minutes': '40'}, 'end': {'hours': '14', 'minutes': '10'}, 'name': 'AGLA Lab'}
+                ]
+    def __init__(self):
+        pass
+
+    @staticmethod
+    def lessonToString():
+        return f'{schedule['start']['hours']}:{schedule['start']['minutes']}-{schedule['end']['hours']}:{schedule['end']['minutes']}: {schedule['name']}'
+
+    def show_schedule(self):
+        res = ''
+        current = getCorrectDate()
+        for lesson in self.schedule:
+            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 > current.hour * 3600 + current.minutes * 60 + current.second:
+                res = res + '✅' + Friday.lessonToString() + '\n'
+            else:
+                res = res + '❌' + Friday.lessonToString() + '\n'
+        return res
+    
+
+class Saturday:
+    schedule = [{'start': {'hours': '10', 'minutes': '40'}, 'end': {'hours': '14', 'minutes': '10'}, 'name': 'Software Engineering Toolkit'},]
+    def __init__(self):
+        pass
+
+    @staticmethod
+    def lessonToString():
+        return f'{schedule['start']['hours']}:{schedule['start']['minutes']}-{schedule['end']['hours']}:{schedule['end']['minutes']}: {schedule['name']}'
+
+    def show_schedule(self):
+        res = ''
+        current = getCorrectDate()
+        for lesson in self.schedule:
+            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 > current.hour * 3600 + current.minutes * 60 + current.second:
+                res = res + '✅' + Saturday.lessonToString() + '\n'
+            else:
+                res = res + '❌' + Saturday.lessonToString() + '\n'
+        return res
+    
+
+class Sunday:
+    schedule = [{'start': {'hours': '11', 'minutes': '30'}, 'end': {'hours': '13', 'minutes': '00'}, 'name': 'DSA Lecture'},]
+    def __init__(self):
+        pass
+
+    @staticmethod
+    def lessonToString():
+        return f'{schedule['start']['hours']}:{schedule['start']['minutes']}-{schedule['end']['hours']}:{schedule['end']['minutes']}: {schedule['name']}'
+
+    def show_schedule(self):
+        res = ''
+        current = getCorrectDate()
+        for lesson in self.schedule:
+            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 > current.hour * 3600 + current.minutes * 60 + current.second:
+                res = res + '✅' + Sunday.lessonToString() + '\n'
+            else:
+                res = res + '❌' + Sunday.lessonToString() + '\n'
+        return res
+schedule = {
+    0: Monday(),
+    1: Tuesday(),
+    2: Wednesday(),
+    3: Thursday(),
+    4: Friday(),
+    5: Saturday(),
+    6: Sunday()
+}
+
+'''DSA Lecture\n10:40-12:10 DSA Tutorial\n12:40-14:10 DSA Lab\n16:00-17:30: AWA',
     '09:00-10:30 SSAD Lecture\n10:40-12:10 SSAD Tutorial\n14:20-15:50 SSAD Lab\n16:30-18:00: Table Tennis Training',
     '09:00-10:30 Math Analysis Lecture\n10:40-12:10 Math Analysis Tutorial\n12:40-14:10 Math Analysis Lab\n16:00-17:30: AWA',
     '09:00-10:30 TCS Lecture\n10:40-12:10 TCS Tutorial\n12:40-14:10 TCS Lab\n16:30-18:00: Table Tennis Training',
     '09:00-10:30 AGLA Lecture\n10:40-12:10 AGLA Tutorial\n12:40-14:10 AGLA Lab',
     '10:40-14:10 Software Engineering Toolkit',
-    '11:30-13:00 Table Tennis Tournament'
-]
+    '11:30-13:00 Table Tennis Tournament'''
 
 weekdays = 'Понедельник Вторник Среда Четверг Пятница Суббота Воскресенье'.split()
 
@@ -42,6 +208,11 @@ def check_subscription(message):
         return False
     return True
 
+def getCorrectDate():
+    old = (datetime.now() - datetime(1970, 1, 1, 0, 0, 0, 0)).total_seconds() + 10800
+    new = datetime.fromtimestamp(old)
+    return new
+
 @t.message_handler(commands=['start'])
 def start(message):
     t.send_message(message.chat.id, "Привет! Чтобы я показывал правильное время, пришли мне свою геопозицию (кнопку в меню), а затем используй /date или /schedule.")
@@ -50,16 +221,12 @@ def start(message):
 def send_schedule(message):
     if not check_subscription(message):
         return
-    old = (datetime.now() - datetime(1970, 1, 1, 0, 0, 0, 0)).total_seconds() + 10800
-    new = datetime.fromtimestamp(old)
-    t.send_message(message.chat.id, schedule[new.weekday()])
+    t.send_message(message.chat.id, schedule[getCorrectDate().weekday()])
 
 @t.message_handler(commands=['date'])
 def send_date(message):
     if not check_subscription(message):
         return
-    old = (datetime.now() - datetime(1970, 1, 1, 0, 0, 0, 0)).total_seconds() + 10800
-    new = datetime.fromtimestamp(old)
-    t.send_message(message.chat.id, toString(new))
+    t.send_message(message.chat.id, toString(getCorrectDate()))
 
 t.infinity_polling()
