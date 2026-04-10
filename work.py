@@ -44,7 +44,7 @@ class Tuesday:
 
     @staticmethod
     def lessonToString(lesson):
-        return f'{lesson['start']['hours']}:{lesson['start']['minutes']}-{lesson['end']['hours']}:{lesson['end']['minutes']}: {lesson['name']}'
+        return f"{lesson['start']['hours']}:{lesson['start']['minutes']}-{lesson['end']['hours']}:{lesson['end']['minutes']}: {lesson['name']}"
 
     def show_schedule(self):
         res = ''
@@ -68,7 +68,7 @@ class Wednesday:
 
     @staticmethod
     def lessonToString(lesson):
-        return f'{lesson['start']['hours']}:{lesson['start']['minutes']}-{lesson['end']['hours']}:{lesson['end']['minutes']}: {lesson['name']}'
+        return f"{lesson['start']['hours']}:{lesson['start']['minutes']}-{lesson['end']['hours']}:{lesson['end']['minutes']}: {lesson['name']}"
 
     def show_schedule(self):
         res = ''
@@ -92,7 +92,7 @@ class Thursday:
 
     @staticmethod
     def lessonToString(lesson):
-        return f'{lesson['start']['hours']}:{lesson['start']['minutes']}-{lesson['end']['hours']}:{lesson['end']['minutes']}: {lesson['name']}'
+        return f"{lesson['start']['hours']}:{lesson['start']['minutes']}-{lesson['end']['hours']}:{lesson['end']['minutes']}: {lesson['name']}"
 
     def show_schedule(self):
         res = ''
@@ -115,7 +115,7 @@ class Friday:
 
     @staticmethod
     def lessonToString(lesson):
-        return f'{lesson['start']['hours']}:{lesson['start']['minutes']}-{lesson['end']['hours']}:{lesson['end']['minutes']}: {lesson['name']}'
+        return f"{lesson['start']['hours']}:{lesson['start']['minutes']}-{lesson['end']['hours']}:{lesson['end']['minutes']}: {lesson['name']}"
 
     def show_schedule(self):
         res = ''
@@ -135,7 +135,7 @@ class Saturday:
 
     @staticmethod
     def lessonToString(lesson):
-        return f'{lesson['start']['hours']}:{lesson['start']['minutes']}-{lesson['end']['hours']}:{lesson['end']['minutes']}: {lesson['name']}'
+        return f"{lesson['start']['hours']}:{lesson['start']['minutes']}-{lesson['end']['hours']}:{lesson['end']['minutes']}: {lesson['name']}"
 
     def show_schedule(self):
         res = ''
@@ -155,7 +155,7 @@ class Sunday:
 
     @staticmethod
     def lessonToString(lesson):
-        return f'{lesson['start']['hours']}:{lesson['start']['minutes']}-{lesson['end']['hours']}:{lesson['end']['minutes']}: {lesson['name']}'
+        return f"{lesson['start']['hours']}:{lesson['start']['minutes']}-{lesson['end']['hours']}:{lesson['end']['minutes']}: {lesson['name']}"
 
     def show_schedule(self):
         res = ''
@@ -167,7 +167,7 @@ class Sunday:
                 res = res + '❌' + Sunday.lessonToString(lesson) + '\n'
         return res
     
-    
+
 schedule = {
     0: Monday(),
     1: Tuesday(),
