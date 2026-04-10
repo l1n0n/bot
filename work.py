@@ -26,9 +26,9 @@ class Monday:
         res = ''
         res = res + str(weekdays[current.weekday()]) + ' ' + str(current.day) + ' ' + str(current.month) + ' ' + str(current.year) + ' ' + str(current.hour) + ' ' + str(current.minute) + '\n'
         for lesson in self.schedule:
-            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 < current.hour * 3600 + current.minute * 60 + current.second:
+            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Monday.lessonToString(lesson) + '\n'
-            elif int(lesson['start']['hours']) * 3600 + int(lesson['start']['minutes']) * 60 < current.hour * 3600 + current.minute * 60 + current.second < int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60:
+            elif int(lesson['start']['hours']) * 3600 + int(lesson['start']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second < int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60:
                 res = res + '🧑‍💻' + Monday.lessonToString(lesson) + '\n'
             else:
                 res = res + '❌' + Monday.lessonToString(lesson) + '\n'
@@ -52,9 +52,9 @@ class Tuesday:
         res = ''
         res = res + str(weekdays[current.weekday()]) + ' ' + str(current.day) + ' ' + str(current.month) + ' ' + str(current.year) + ' ' + str(current.hour) + ' ' + str(current.minute) + '\n'
         for lesson in self.schedule:
-            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 < current.hour * 3600 + current.minute * 60 + current.second:
+            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Tuesday.lessonToString(lesson) + '\n'
-            elif int(lesson['start']['hours']) * 3600 + int(lesson['start']['minutes']) * 60 < current.hour * 3600 + current.minute * 60 + current.second < int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60:
+            elif int(lesson['start']['hours']) * 3600 + int(lesson['start']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second < int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60:
                 if 'Tennis' not in lesson['name']:
                     res = res + '🧑‍💻' + Tuesday.lessonToString(lesson) + '\n'
                 else:
@@ -81,9 +81,9 @@ class Wednesday:
         res = ''
         res = res + str(weekdays[current.weekday()]) + ' ' + str(current.day) + ' ' + str(current.month) + ' ' + str(current.year) + ' ' + str(current.hour) + ' ' + str(current.minute) + '\n'
         for lesson in self.schedule:
-            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 < current.hour * 3600 + current.minute * 60 + current.second:
+            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Wednesday.lessonToString(lesson) + '\n'
-            elif int(lesson['start']['hours']) * 3600 + int(lesson['start']['minutes']) * 60 < current.hour * 3600 + current.minute * 60 + current.second < int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60:
+            elif int(lesson['start']['hours']) * 3600 + int(lesson['start']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second < int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60:
                 res = res + '🧑‍💻' + Wednesday.lessonToString(lesson) + '\n'
             else:
                 res = res + '❌' + Wednesday.lessonToString(lesson) + '\n'
@@ -107,9 +107,9 @@ class Thursday:
         res = ''
         res = res + str(weekdays[current.weekday()]) + ' ' + str(current.day) + ' ' + str(current.month) + ' ' + str(current.year) + ' ' + str(current.hour) + ' ' + str(current.minute) + '\n'
         for lesson in self.schedule:
-            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 < current.hour * 3600 + current.minute * 60 + current.second:
+            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Thursday.lessonToString(lesson) + '\n'
-            elif int(lesson['start']['hours']) * 3600 + int(lesson['start']['minutes']) * 60 < current.hour * 3600 + current.minute * 60 + current.second < int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60:
+            elif int(lesson['start']['hours']) * 3600 + int(lesson['start']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second < int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60:
                 if 'Tennis' not in lesson['name']:
                     res = res + '🧑‍💻' + Thursday.lessonToString(lesson) + '\n'
                 else:
@@ -137,7 +137,7 @@ class Friday:
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Friday.lessonToString(lesson) + '\n'
-            elif int(lesson['start']['hours']) * 3600 + int(lesson['start']['minutes']) * 60 < current.hour * 3600 + current.minute * 60 + current.second < int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60:
+            elif int(lesson['start']['hours']) * 3600 + int(lesson['start']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second < int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60:
                 res = res + '🧑‍💻' + Friday.lessonToString(lesson) + '\n'
             else:
                 res = res + '❌' + Friday.lessonToString(lesson) + '\n'
@@ -157,9 +157,9 @@ class Saturday:
         res = ''
         res = res + str(weekdays[current.weekday()]) + ' ' + str(current.day) + ' ' + str(current.month) + ' ' + str(current.year) + ' ' + str(current.hour) + ' ' + str(current.minute) + '\n'
         for lesson in self.schedule:
-            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 < current.hour * 3600 + current.minute * 60 + current.second:
+            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Saturday.lessonToString(lesson) + '\n'
-            elif int(lesson['start']['hours']) * 3600 + int(lesson['start']['minutes']) * 60 < current.hour * 3600 + current.minute * 60 + current.second < int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60:
+            elif int(lesson['start']['hours']) * 3600 + int(lesson['start']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second < int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60:
                 res = res + '🧑‍💻' + Saturday.lessonToString(lesson) + '\n'
             else:
                 res = res + '❌' + Saturday.lessonToString(lesson) + '\n'
@@ -179,9 +179,9 @@ class Sunday:
         res = ''
         res = res + str(weekdays[current.weekday()]) + ' ' + str(current.day) + ' ' + str(current.month) + ' ' + str(current.year) + ' ' + str(current.hour) + ' ' + str(current.minute) + '\n'
         for lesson in self.schedule:
-            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 < current.hour * 3600 + current.minute * 60 + current.second:
+            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Sunday.lessonToString(lesson) + '\n'
-            elif int(lesson['start']['hours']) * 3600 + int(lesson['start']['minutes']) * 60 < current.hour * 3600 + current.minute * 60 + current.second < int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60:
+            elif int(lesson['start']['hours']) * 3600 + int(lesson['start']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second < int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60:
                 res = res + '🏓' + Sunday.lessonToString(lesson) + '\n'
             else:
                 res = res + '❌' + Sunday.lessonToString(lesson) + '\n'
