@@ -26,7 +26,7 @@ class Monday:
         res = ''
         current = getCorrectDate()
         for lesson in self.schedule:
-            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 > current.hour * 3600 + current.minute * 60 + current.second:
+            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 < current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Monday.lessonToString(lesson) + '\n'
             else:
                 res = res + '❌' + Monday.lessonToString(lesson) + '\n'
@@ -50,7 +50,7 @@ class Tuesday:
         res = ''
         current = getCorrectDate()
         for lesson in self.schedule:
-            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 > current.hour * 3600 + current.minute * 60 + current.second:
+            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 < current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Tuesday.lessonToString(lesson) + '\n'
             else:
                 res = res + '❌' + Tuesday.lessonToString(lesson) + '\n'
@@ -74,7 +74,7 @@ class Wednesday:
         res = ''
         current = getCorrectDate()
         for lesson in self.schedule:
-            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 > current.hour * 3600 + current.minute * 60 + current.second:
+            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 < current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Wednesday.lessonToString(lesson) + '\n'
             else:
                 res = res + '❌' + Wednesday.lessonToString(lesson) + '\n'
@@ -98,7 +98,7 @@ class Thursday:
         res = ''
         current = getCorrectDate()
         for lesson in self.schedule:
-            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 > current.hour * 3600 + current.minute * 60 + current.second:
+            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 < current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Thursday.lessonToString(lesson) + '\n'
             else:
                 res = res + '❌' + Thursday.lessonToString(lesson) + '\n'
@@ -121,7 +121,7 @@ class Friday:
         res = ''
         current = getCorrectDate()
         for lesson in self.schedule:
-            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 > current.hour * 3600 + current.minute * 60 + current.second:
+            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 < current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Friday.lessonToString(lesson) + '\n'
             else:
                 res = res + '❌' + Friday.lessonToString(lesson) + '\n'
@@ -141,7 +141,7 @@ class Saturday:
         res = ''
         current = getCorrectDate()
         for lesson in self.schedule:
-            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 > current.hour * 3600 + current.minute * 60 + current.second:
+            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 < current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Saturday.lessonToString(lesson) + '\n'
             else:
                 res = res + '❌' + Saturday.lessonToString(lesson) + '\n'
@@ -161,7 +161,7 @@ class Sunday:
         res = ''
         current = getCorrectDate()
         for lesson in self.schedule:
-            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 > current.hour * 3600 + current.minute * 60 + current.second:
+            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 < current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Sunday.lessonToString(lesson) + '\n'
             else:
                 res = res + '❌' + Sunday.lessonToString(lesson) + '\n'
