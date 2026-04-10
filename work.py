@@ -195,7 +195,7 @@ class Sunday:
         return res
     
 
-schedule = {
+days = {
     0: Monday(),
     1: Tuesday(),
     2: Wednesday(),
@@ -241,7 +241,7 @@ def start(message):
 def send_schedule(message):
     if not check_subscription(message):
         return
-    t.send_message(message.chat.id, schedule[getCorrectDate().weekday()].show_schedule())
+    t.send_message(message.chat.id, days[getCorrectDate().weekday()].show_schedule())
 
 @t.message_handler(commands=['date'])
 def send_date(message):
