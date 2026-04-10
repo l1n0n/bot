@@ -80,6 +80,7 @@ class Wednesday:
     def show_schedule(self):
         res = ''
         current = getCorrectDate()
+        res = res + 
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 < current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Wednesday.lessonToString(lesson) + '\n'
@@ -198,20 +199,10 @@ schedule = {
     6: Sunday()
 }
 
-'''DSA Lecture\n10:40-12:10 DSA Tutorial\n12:40-14:10 DSA Lab\n16:00-17:30: AWA',
-    '09:00-10:30 SSAD Lecture\n10:40-12:10 SSAD Tutorial\n14:20-15:50 SSAD Lab\n16:30-18:00: Table Tennis Training',
-    '09:00-10:30 Math Analysis Lecture\n10:40-12:10 Math Analysis Tutorial\n12:40-14:10 Math Analysis Lab\n16:00-17:30: AWA',
-    '09:00-10:30 TCS Lecture\n10:40-12:10 TCS Tutorial\n12:40-14:10 TCS Lab\n16:30-18:00: Table Tennis Training',
-    '09:00-10:30 AGLA Lecture\n10:40-12:10 AGLA Tutorial\n12:40-14:10 AGLA Lab',
-    '10:40-14:10 Software Engineering Toolkit',
-    '11:30-13:00 Table Tennis Tournament'''
-
 weekdays = 'Понедельник Вторник Среда Четверг Пятница Суббота Воскресенье'.split()
 
 def toString(d: datetime):
-    return f'''Сейчас в Иннополисе:
-{weekdays[d.weekday()]}, {d.day:02d}.{d.month:02d}.{d.year}, {d.hour:02d}:{d.minute:02d}:{d.second:02d}
-''' 
+    return f'''Сейчас в Иннополисе:\n{weekdays[d.weekday()]}, {d.day:02d}.{d.month:02d}.{d.year}, {d.hour:02d}:{d.minute:02d}:{d.second:02d}''' 
 
 CHANNEL = '@mvnntl_t_nthr_cntr'
 
@@ -233,7 +224,7 @@ def check_subscription(message):
 def getCorrectDate():
     old = (datetime.now() - datetime(1970, 1, 1, 0, 0, 0, 0)).total_seconds() + 10800
     new = datetime.fromtimestamp(old)
-    new = datetime(2026, 4, 10, 12, 50)
+    new = datetime(2026, 4, randint(1, 30), randint(0, 23), randint(0, 59))
     return new
 
 @t.message_handler(commands=['start'])
