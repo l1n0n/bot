@@ -19,17 +19,17 @@ class Monday:
         pass
 
     @staticmethod
-    def lessonToString():
-        return f'{schedule['start']['hours']}:{schedule['start']['minutes']}-{schedule['end']['hours']}:{schedule['end']['minutes']}: {schedule['name']}'
+    def lessonToString(lesson):
+        return f"{lesson['start']['hours']}:{lesson['start']['minutes']}-{lesson['end']['hours']}:{lesson['end']['minutes']}: {lesson['name']}"
 
     def show_schedule(self):
         res = ''
         current = getCorrectDate()
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 > current.hour * 3600 + current.minutes * 60 + current.second:
-                res = res + '✅' + Monday.lessonToString() + '\n'
+                res = res + '✅' + Monday.lessonToString(lesson) + '\n'
             else:
-                res = res + '❌' + Monday.lessonToString() + '\n'
+                res = res + '❌' + Monday.lessonToString(lesson) + '\n'
         return res
     
 
@@ -43,17 +43,17 @@ class Tuesday:
         pass
 
     @staticmethod
-    def lessonToString():
-        return f'{schedule['start']['hours']}:{schedule['start']['minutes']}-{schedule['end']['hours']}:{schedule['end']['minutes']}: {schedule['name']}'
+    def lessonToString(lesson):
+        return f'{lesson['start']['hours']}:{lesson['start']['minutes']}-{lesson['end']['hours']}:{lesson['end']['minutes']}: {lesson['name']}'
 
     def show_schedule(self):
         res = ''
         current = getCorrectDate()
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 > current.hour * 3600 + current.minutes * 60 + current.second:
-                res = res + '✅' + Tuesday.lessonToString() + '\n'
+                res = res + '✅' + Tuesday.lessonToString(lesson) + '\n'
             else:
-                res = res + '❌' + Tuesday.lessonToString() + '\n'
+                res = res + '❌' + Tuesday.lessonToString(lesson) + '\n'
         return res
 
 
@@ -67,17 +67,17 @@ class Wednesday:
         pass
 
     @staticmethod
-    def lessonToString():
-        return f'{schedule['start']['hours']}:{schedule['start']['minutes']}-{schedule['end']['hours']}:{schedule['end']['minutes']}: {schedule['name']}'
+    def lessonToString(lesson):
+        return f'{lesson['start']['hours']}:{lesson['start']['minutes']}-{lesson['end']['hours']}:{lesson['end']['minutes']}: {lesson['name']}'
 
     def show_schedule(self):
         res = ''
         current = getCorrectDate()
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 > current.hour * 3600 + current.minutes * 60 + current.second:
-                res = res + '✅' + Wednesday.lessonToString() + '\n'
+                res = res + '✅' + Wednesday.lessonToString(lesson) + '\n'
             else:
-                res = res + '❌' + Wednesday.lessonToString() + '\n'
+                res = res + '❌' + Wednesday.lessonToString(lesson) + '\n'
         return res
     
 
@@ -91,17 +91,17 @@ class Thursday:
         pass
 
     @staticmethod
-    def lessonToString():
-        return f'{schedule['start']['hours']}:{schedule['start']['minutes']}-{schedule['end']['hours']}:{schedule['end']['minutes']}: {schedule['name']}'
+    def lessonToString(lesson):
+        return f'{lesson['start']['hours']}:{lesson['start']['minutes']}-{lesson['end']['hours']}:{lesson['end']['minutes']}: {lesson['name']}'
 
     def show_schedule(self):
         res = ''
         current = getCorrectDate()
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 > current.hour * 3600 + current.minutes * 60 + current.second:
-                res = res + '✅' + Thursday.lessonToString() + '\n'
+                res = res + '✅' + Thursday.lessonToString(lesson) + '\n'
             else:
-                res = res + '❌' + Thursday.lessonToString() + '\n'
+                res = res + '❌' + Thursday.lessonToString(lesson) + '\n'
         return res
     
 
@@ -114,17 +114,17 @@ class Friday:
         pass
 
     @staticmethod
-    def lessonToString():
-        return f'{schedule['start']['hours']}:{schedule['start']['minutes']}-{schedule['end']['hours']}:{schedule['end']['minutes']}: {schedule['name']}'
+    def lessonToString(lesson):
+        return f'{lesson['start']['hours']}:{lesson['start']['minutes']}-{lesson['end']['hours']}:{lesson['end']['minutes']}: {lesson['name']}'
 
     def show_schedule(self):
         res = ''
         current = getCorrectDate()
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 > current.hour * 3600 + current.minutes * 60 + current.second:
-                res = res + '✅' + Friday.lessonToString() + '\n'
+                res = res + '✅' + Friday.lessonToString(lesson) + '\n'
             else:
-                res = res + '❌' + Friday.lessonToString() + '\n'
+                res = res + '❌' + Friday.lessonToString(lesson) + '\n'
         return res
     
 
@@ -134,17 +134,17 @@ class Saturday:
         pass
 
     @staticmethod
-    def lessonToString():
-        return f'{schedule['start']['hours']}:{schedule['start']['minutes']}-{schedule['end']['hours']}:{schedule['end']['minutes']}: {schedule['name']}'
+    def lessonToString(lesson):
+        return f'{lesson['start']['hours']}:{lesson['start']['minutes']}-{lesson['end']['hours']}:{lesson['end']['minutes']}: {lesson['name']}'
 
     def show_schedule(self):
         res = ''
         current = getCorrectDate()
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 > current.hour * 3600 + current.minutes * 60 + current.second:
-                res = res + '✅' + Saturday.lessonToString() + '\n'
+                res = res + '✅' + Saturday.lessonToString(lesson) + '\n'
             else:
-                res = res + '❌' + Saturday.lessonToString() + '\n'
+                res = res + '❌' + Saturday.lessonToString(lesson) + '\n'
         return res
     
 
@@ -154,18 +154,20 @@ class Sunday:
         pass
 
     @staticmethod
-    def lessonToString():
-        return f'{schedule['start']['hours']}:{schedule['start']['minutes']}-{schedule['end']['hours']}:{schedule['end']['minutes']}: {schedule['name']}'
+    def lessonToString(lesson):
+        return f'{lesson['start']['hours']}:{lesson['start']['minutes']}-{lesson['end']['hours']}:{lesson['end']['minutes']}: {lesson['name']}'
 
     def show_schedule(self):
         res = ''
         current = getCorrectDate()
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 > current.hour * 3600 + current.minutes * 60 + current.second:
-                res = res + '✅' + Sunday.lessonToString() + '\n'
+                res = res + '✅' + Sunday.lessonToString(lesson) + '\n'
             else:
-                res = res + '❌' + Sunday.lessonToString() + '\n'
+                res = res + '❌' + Sunday.lessonToString(lesson) + '\n'
         return res
+    
+    
 schedule = {
     0: Monday(),
     1: Tuesday(),
