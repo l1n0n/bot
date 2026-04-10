@@ -24,7 +24,7 @@ class Monday:
 
     def show_schedule(self, current):
         res = ''
-        res = res + str(current.day) + ' ' + str(current.month) + ' ' + str(current.year) + ' ' + str(current.hour) + ' ' + str(current.minute) + '\n'
+        res = res + str(days[current.weekday()]) + ' ' + str(current.day) + ' ' + str(current.month) + ' ' + str(current.year) + ' ' + str(current.hour) + ' ' + str(current.minute) + '\n'
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 < current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Monday.lessonToString(lesson) + '\n'
@@ -35,7 +35,7 @@ class Monday:
         return res
     
 
-"""class Tuesday:
+class Tuesday:
     schedule = [{'start': {'hours': '09', 'minutes': '00'}, 'end': {'hours': '10', 'minutes': '30'}, 'name': 'SSAD Lecture'},
                 {'start': {'hours': '10', 'minutes': '40'}, 'end': {'hours': '12', 'minutes': '10'}, 'name': 'SSAD Tutorial'},
                 {'start': {'hours': '14', 'minutes': '20'}, 'end': {'hours': '15', 'minutes': '50'}, 'name': 'SSAD Lab'},
@@ -50,7 +50,7 @@ class Monday:
 
     def show_schedule(self, current):
         res = ''
-        res = res + str(current.day) + ' ' + str(current.month) + ' ' + str(current.year) + ' ' + str(current.hour) + ' ' + str(current.minute) + '\n'
+        res = res + str(days[current.weekday()]) + ' ' + str(current.day) + ' ' + str(current.month) + ' ' + str(current.year) + ' ' + str(current.hour) + ' ' + str(current.minute) + '\n'
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 < current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Tuesday.lessonToString(lesson) + '\n'
@@ -79,7 +79,7 @@ class Wednesday:
 
     def show_schedule(self, current) -> str:
         res = ''
-        res = res + str(current.day) + ' ' + str(current.month) + ' ' + str(current.year) + ' ' + str(current.hour) + ' ' + str(current.minute) + '\n'
+        res = res + str(days[current.weekday()]) + ' ' + str(current.day) + ' ' + str(current.month) + ' ' + str(current.year) + ' ' + str(current.hour) + ' ' + str(current.minute) + '\n'
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 < current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Wednesday.lessonToString(lesson) + '\n'
@@ -105,7 +105,7 @@ class Thursday:
 
     def show_schedule(self, current):
         res = ''
-        res = res + str(current.day) + ' ' + str(current.month) + ' ' + str(current.year) + ' ' + str(current.hour) + ' ' + str(current.minute) + '\n'
+        res = res + str(days[current.weekday()]) + ' ' + str(current.day) + ' ' + str(current.month) + ' ' + str(current.year) + ' ' + str(current.hour) + ' ' + str(current.minute) + '\n'
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 < current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Thursday.lessonToString(lesson) + '\n'
@@ -133,7 +133,7 @@ class Friday:
 
     def show_schedule(self, current):
         res = ''
-        res = res + str(current.day) + ' ' + str(current.month) + ' ' + str(current.year) + ' ' + str(current.hour) + ' ' + str(current.minute) + '\n'
+        res = res + str(days[current.weekday()]) + ' ' + str(current.day) + ' ' + str(current.month) + ' ' + str(current.year) + ' ' + str(current.hour) + ' ' + str(current.minute) + '\n'
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Friday.lessonToString(lesson) + '\n'
@@ -153,9 +153,9 @@ class Saturday:
     def lessonToString(lesson):
         return f"{lesson['start']['hours']}:{lesson['start']['minutes']}-{lesson['end']['hours']}:{lesson['end']['minutes']}: {lesson['name']}"
 
-    def show_schedule(self, current):
+    def show_schedule(self, current: datetime):
         res = ''
-        res = res + str(current.day) + ' ' + str(current.month) + ' ' + str(current.year) + ' ' + str(current.hour) + ' ' + str(current.minute) + '\n'
+        res = res + str(days[current.weekday()]) + ' ' + str(current.day) + ' ' + str(current.month) + ' ' + str(current.year) + ' ' + str(current.hour) + ' ' + str(current.minute) + '\n'
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 < current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Saturday.lessonToString(lesson) + '\n'
@@ -167,7 +167,7 @@ class Saturday:
     
 
 class Sunday:
-    schedule = [{'start': {'hours': '11', 'minutes': '30'}, 'end': {'hours': '13', 'minutes': '00'}, 'name': 'DSA Lecture'},]
+    schedule = [{'start': {'hours': '11', 'minutes': '30'}, 'end': {'hours': '13', 'minutes': '00'}, 'name': 'Table Tennis Tournament'},]
     def __init__(self):
         pass
 
@@ -177,7 +177,7 @@ class Sunday:
 
     def show_schedule(self, current):
         res = ''
-        res = res + str(current.day) + ' ' + str(current.month) + ' ' + str(current.year) + ' ' + str(current.hour) + ' ' + str(current.minute) + '\n'
+        res = res + str(days[current.weekday()]) + ' ' + str(current.day) + ' ' + str(current.month) + ' ' + str(current.year) + ' ' + str(current.hour) + ' ' + str(current.minute) + '\n'
         for lesson in self.schedule:
             if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 < current.hour * 3600 + current.minute * 60 + current.second:
                 res = res + '✅' + Sunday.lessonToString(lesson) + '\n'
@@ -186,17 +186,16 @@ class Sunday:
             else:
                 res = res + '❌' + Sunday.lessonToString(lesson) + '\n'
         return res
-    """
 
 days = {
-    0: Monday()
-    }
-'''1: Tuesday(),
+    0: Monday(),
+    1: Tuesday(),
     2: Wednesday(),
     3: Thursday(),
     4: Friday(),
     5: Saturday(),
-    6: Sunday()'''
+    6: Sunday()
+}
 
 
 weekdays = 'Понедельник Вторник Среда Четверг Пятница Суббота Воскресенье'.split()
