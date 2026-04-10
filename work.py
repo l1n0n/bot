@@ -224,6 +224,7 @@ def getCorrectDate():
     old = (datetime.now() - datetime(1970, 1, 1, 0, 0, 0, 0)).total_seconds() + 10800
     new = datetime.fromtimestamp(old)
     new = datetime(2026, 4, randint(1, 30), randint(0, 23), randint(0, 59))
+    new = datetime(2026, 4, 19, 5, 16)
     return new
 
 @t.message_handler(commands=['start'])
