@@ -241,7 +241,7 @@ def getCorrectDate():
 
 @t.message_handler(commands=['start'])
 def start(message):
-    t.send_message(message.chat.id, "Привет! Я бот, который может показывать сегодняшнее расписание лекций в Университете Иннополис.\nЧтобы узнать сегодняшнюю дату, нажмите сюда: /date\nЧтобы узнать сегодняшнее расписание, нажмите сюда: /schedule")
+    t.send_message(message.chat.id, "Привет! Я бот, который может показывать сегодняшнее расписание лекций в Университете Иннополис.\n\nЧтобы узнать сегодняшнюю дату, нажмите сюда: /date\n\nЧтобы узнать сегодняшнее расписание, нажмите сюда: /schedule")
 
 @t.message_handler(commands=['schedule'])
 def send_schedule(message):
