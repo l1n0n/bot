@@ -235,6 +235,7 @@ def send_date(message):
         return
     t.send_message(message.chat.id, toString(getCorrectDate()))
 
+@t.message_handler(commands=[''])
 def updated(message):
     t.send_message(message.chat.id, 'Бот обновлен')
 
