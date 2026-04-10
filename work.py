@@ -189,7 +189,7 @@ schedule = {
 weekdays = 'Понедельник Вторник Среда Четверг Пятница Суббота Воскресенье'.split()
 
 def toString(d: datetime):
-    return f'''Сейчас в Иннополисе:
+    return f'''Сейчас в Иннополисе😍:
 {weekdays[d.weekday()]}, {d.day:02d}.{d.month:02d}.{d.year}, {d.hour:02d}:{d.minute:02d}:{d.second:02d}
 ''' 
 
