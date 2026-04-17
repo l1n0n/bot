@@ -254,19 +254,20 @@ GROUP_ID = "65f1c243673c660600f723e7"
 bot = telebot.TeleBot(os.getenv('BOT_TOKEN'))
 
 def get_schedule():
-    # Попробуй этот URL без слэша в конце, если 404 повторяется
-    url = "https://api.innohassle.ru/events/v0/events/search"
+    # Используем базовый эндпоинт событий
+    url = "https://api.innohassle.ru/events/v0/events/"
     headers = {
         "Authorization": f"Bearer {INNOHASSLE_TOKEN}",
-        "Content-Type": "application/json"
+        "Accept": "application/json"
     }
-    payload = {
-        "filter": {"group_ids": [GROUP_ID]},
-        "limit": 50
+    # Передаем ID группы как параметр запроса
+    params = {
+        "group_id": GROUP_ID,
+        "limit": 100
     }
     
     try:
-        response = requests.post(url, json=payload, headers=headers, timeout=10)
+        response = requests.get(url, headers=headers, params=params, timeout=10)
         if response.status_code == 200:
             return response.json().get('items', [])
         else:
@@ -280,7 +281,7 @@ def get_schedule():
 def send_today(message):
     data = get_schedule()
     if data is None:
-        bot.reply_to(message, "❌ Ошибка API. Проверь токен или URL.")
+        bot.reply_to(message, "❌ Не удалось получить данные. Проверь консоль на ошибки.")
         return
 
     tz_inno = timezone(timedelta(hours=3))
@@ -288,14 +289,20 @@ def send_today(message):
     res = []
 
     for event in data:
-        dt_utc = datetime.fromisoformat(event['start_time'].replace('Z', '+00:00'))
+        start_time = event.get('start_time')
+        if not start_time:
+            continue
+            
+        dt_utc = datetime.fromisoformat(start_time.replace('Z', '+00:00'))
         dt_local = dt_utc.astimezone(tz_inno)
         
         if dt_local.date() == today:
-            res.append(f"⏰ `{dt_local.strftime('%H:%M')}` — *{event.get('name')}*\n📍 {event.get('location', '---')}")
+            name = event.get('name', 'Занятие')
+            loc = event.get('location', '---')
+            res.append(f"⏰ `{dt_local.strftime('%H:%M')}` — *{name}*\n📍 {loc}")
 
     if not res:
-        bot.send_message(message.chat.id, "📅 На сегодня пар нет!")
+        bot.send_message(message.chat.id, f"📅 На сегодня ({today.strftime('%d.%m')}) пар нет.")
     else:
         bot.send_message(message.chat.id, f"📅 *Расписание на сегодня:*\n\n" + "\n\n".join(sorted(res)), parse_mode="Markdown")
 
