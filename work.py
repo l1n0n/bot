@@ -245,62 +245,59 @@
 import telebot
 import requests
 from datetime import datetime, timedelta, timezone
+import os
 
 # --- КОНФИГУРАЦИЯ ---
-TELEGRAM_TOKEN = "6015308173:AAEAnP8IYiwrayHSR8Hl2zuRgRalYYd9sn4"
 INNOHASSLE_TOKEN = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2OGE0MGVkNGFkOTkyYTk0YjBmYTM0NjQiLCJlbWFpbCI6Imwua2FzaW1vdkBpbm5vcG9saXMudW5pdmVyc2l0eSIsInRlbGVncmFtX2lkIjoxMjQ3NjgxNjc2LCJleHAiOjE3NzY1MzI2NjksImlhdCI6MTc3NjQ0NjI2OSwic2NvcGUiOiJtZSJ9.KdqD6Bh79do9vKsMnmlYQBfSCCv634yeDb08k8TmHZQgCf5ZKcaHLYYcxrIQtzMPIvPJPfSXUU-1qmNFumZl6XYJpTWncyJ79eeLD_Jc3SpY5J2OZAncQzBMTHw_vHVqtD6KICekMvpbKnqO9IRzMeo0chQrGVCgGvTfHARTa-t3pZO21bQf2JDB9EspyUjzkLSR1Bz_73tDyFr3OQaL-VRkPBlWvea27xuk40xvBHmvGGRki4MG7KPMYyaXFTPR41Aac_p48_D74EcPshpJEyql0d2I-F1NWmEp6zt-b3sa3I1EbyG0zS1EuBo0S5YVm4Sezesm0mLLnQBs3Tl_EA"
 GROUP_ID = "65f1c243673c660600f723e7"
 
-bot = telebot.TeleBot(TELEGRAM_TOKEN)
+bot = telebot.TeleBot(os.getenv('BOT_TOKEN'))
 
 def get_schedule():
-    url = "https://api.innohassle.ru/events/v0/events/search/"
+    # Попробуй этот URL без слэша в конце, если 404 повторяется
+    url = "https://api.innohassle.ru/events/v0/events/search"
     headers = {
         "Authorization": f"Bearer {INNOHASSLE_TOKEN}",
         "Content-Type": "application/json"
     }
     payload = {
         "filter": {"group_ids": [GROUP_ID]},
-        "limit": 100
+        "limit": 50
     }
-    try:
-        r = requests.post(url, json=payload, headers=headers, timeout=10)
-        if r.status_code == 200:
-            return r.json().get('items', []), None
-        return None, f"Ошибка API: {r.status_code}\n{r.text[:100]}"
-    except Exception as e:
-        return None, f"Ошибка сети: {str(e)}"
-
-@bot.message_handler(commands=['start', 'today'])
-def send_today(message):
-    data, error = get_schedule()
     
-    if error:
-        bot.reply_to(message, f"❌ {error}")
+    try:
+        response = requests.post(url, json=payload, headers=headers, timeout=10)
+        if response.status_code == 200:
+            return response.json().get('items', [])
+        else:
+            print(f"Ошибка {response.status_code}: {response.text}")
+            return None
+    except Exception as e:
+        print(f"Ошибка сети: {e}")
+        return None
+
+@bot.message_handler(commands=['today'])
+def send_today(message):
+    data = get_schedule()
+    if data is None:
+        bot.reply_to(message, "❌ Ошибка API. Проверь токен или URL.")
         return
 
-    # Устанавливаем часовой пояс Иннополиса (UTC+3)
     tz_inno = timezone(timedelta(hours=3))
     today = datetime.now(tz_inno).date()
-    
     res = []
+
     for event in data:
-        # Парсим время из API
-        dt_str = event['start_time'].replace('Z', '+00:00')
-        dt_utc = datetime.fromisoformat(dt_str)
-        # Переводим время в часовой пояс Иннополиса
+        dt_utc = datetime.fromisoformat(event['start_time'].replace('Z', '+00:00'))
         dt_local = dt_utc.astimezone(tz_inno)
         
         if dt_local.date() == today:
-            time_start = dt_local.strftime('%H:%M')
-            res.append(f"⏰ `{time_start}` — *{event.get('name', 'Занятие')}*\n📍 {event.get('location', 'Аудитория не указана')}")
+            res.append(f"⏰ `{dt_local.strftime('%H:%M')}` — *{event.get('name')}*\n📍 {event.get('location', '---')}")
 
     if not res:
-        bot.send_message(message.chat.id, f"📅 На сегодня ({today.strftime('%d.%m')}) пар не найдено!")
+        bot.send_message(message.chat.id, "📅 На сегодня пар нет!")
     else:
-        output = f"📅 *Расписание на сегодня ({today.strftime('%d.%m')}):*\n\n" + "\n\n".join(sorted(res))
-        bot.send_message(message.chat.id, output, parse_mode="Markdown")
+        bot.send_message(message.chat.id, f"📅 *Расписание на сегодня:*\n\n" + "\n\n".join(sorted(res)), parse_mode="Markdown")
 
 if __name__ == "__main__":
-    print("Бот запущен...")
     bot.infinity_polling()
