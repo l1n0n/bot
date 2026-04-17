@@ -158,7 +158,7 @@ class Saturday:
     def __init__(self):
         pass
 
-    def show_schedule(self):
+    def show_schedule(self, d: datetime):
         return 'Сегодня ничего нет'
     
 
