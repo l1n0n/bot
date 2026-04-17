@@ -155,27 +155,11 @@ class Friday:
     
 
 class Saturday:
-    schedule = [{'start': {'hours': '10', 'minutes': '40'}, 'end': {'hours': '14', 'minutes': '10'}, 'name': 'Software Engineering Toolkit'},]
     def __init__(self):
         pass
 
-    @staticmethod
-    def lessonToString(lesson):
-        return f"{lesson['start']['hours']}:{lesson['start']['minutes']}-{lesson['end']['hours']}:{lesson['end']['minutes']}: {lesson['name']}"
-
-    def show_schedule(self, current: datetime):
-        res = ''
-        dayIsOver = True
-        for lesson in self.schedule:
-            if int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second:
-                res = res + '✅' + Saturday.lessonToString(lesson) + '\n'
-            elif int(lesson['start']['hours']) * 3600 + int(lesson['start']['minutes']) * 60 <= current.hour * 3600 + current.minute * 60 + current.second < int(lesson['end']['hours']) * 3600 + int(lesson['end']['minutes']) * 60:
-                res = res + '🧑‍💻' + Saturday.lessonToString(lesson) + '\n'
-                dayIsOver = False
-            else:
-                res = res + '❌' + Saturday.lessonToString(lesson) + '\n'
-                dayIsOver = False
-        return res + '\nНа сегодня занятия закончились! 🥳' if dayIsOver else res
+    def show_schedule(self):
+        return 'Сегодня ничего нет'
     
 
 class Sunday:
@@ -237,6 +221,7 @@ def check_subscription(message):
 def getCorrectDate():
     old = (datetime.now() - datetime(1970, 1, 1, 0, 0, 0, 0)).total_seconds() + 10800
     new = datetime.fromtimestamp(old)
+    new = datetime(2026, 4, 18, 12, 34, 56)
     return new
 
 @t.message_handler(commands=['start'])
