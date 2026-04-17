@@ -246,73 +246,49 @@ import telebot
 import requests
 from datetime import datetime
 
-# --- ДАННЫЕ ДЛЯ РАБОТЫ ---
-TELEGRAM_TOKEN = "6015308173:AAEAnP8IYiwrayHSR8Hl2zuRgRalYYd9sn4"
-INNOHASSLE_TOKEN = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2OGE0MGVkNGFkOTkyYTk0YjBmYTM0NjQiLCJlbWFpbCI6Imwua2FzaW1vdkBpbm5vcG9saXMudW5pdmVyc2l0eSIsInRlbGVncmFtX2lkIjoxMjQ3NjgxNjc2LCJleHAiOjE3NzY1MzI2NjksImlhdCI6MTc3NjQ0NjI2OSwic2NvcGUiOiJtZSJ9.KdqD6Bh79do9vKsMnmlYQBfSCCv634yeDb08k8TmHZQgCf5ZKcaHLYYcxrIQtzMPIvPJPfSXUU-1qmNFumZl6XYJpTWncyJ79eeLD_Jc3SpY5J2OZAncQzBMTHw_vHVqtD6KICekMvpbKnqO9IRzMeo0chQrGVCgGvTfHARTa-t3pZO21bQf2JDB9EspyUjzkLSR1Bz_73tDyFr3OQaL-VRkPBlWvea27xuk40xvBHmvGGRki4MG7KPMYyaXFTPR41Aac_p48_D74EcPshpJEyql0d2I-F1NWmEp6zt-b3sa3I1EbyG0zS1EuBo0S5YVm4Sezesm0mLLnQBs3Tl_EA" 
+# 1. Токен от BotFather
+BOT_TOKEN = "6015308173:AAEAnP8IYiwrayHSR8Hl2zuRgRalYYd9sn4"
+# 2. Полный токен из браузера (eyJ...)
+TOKEN = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2OGE0MGVkNGFkOTkyYTk0YjBmYTM0NjQiLCJlbWFpbCI6Imwua2FzaW1vdkBpbm5vcG9saXMudW5pdmVyc2l0eSIsInRlbGVncmFtX2lkIjoxMjQ3NjgxNjc2LCJleHAiOjE3NzY1MzI2NjksImlhdCI6MTc3NjQ0NjI2OSwic2NvcGUiOiJtZSJ9.KdqD6Bh79do9vKsMnmlYQBfSCCv634yeDb08k8TmHZQgCf5ZKcaHLYYcxrIQtzMPIvPJPfSXUU-1qmNFumZl6XYJpTWncyJ79eeLD_Jc3SpY5J2OZAncQzBMTHw_vHVqtD6KICekMvpbKnqO9IRzMeo0chQrGVCgGvTfHARTa-t3pZO21bQf2JDB9EspyUjzkLSR1Bz_73tDyFr3OQaL-VRkPBlWvea27xuk40xvBHmvGGRki4MG7KPMYyaXFTPR41Aac_p48_D74EcPshpJEyql0d2I-F1NWmEp6zt-b3sa3I1EbyG0zS1EuBo0S5YVm4Sezesm0mLLnQBs3Tl_EA"
+# 3. Твой ID группы (уже вставлен)
 GROUP_ID = "65f1c243673c660600f723e7"
 
-API_URL = "https://api.innohassle.ru/events/v0/events/search/"
+bot = telebot.TeleBot(BOT_TOKEN)
 
-bot = telebot.TeleBot(TELEGRAM_TOKEN)
-
-def get_schedule():
+def get_data():
+    url = "https://api.innohassle.ru/events/v0/events/search/"
     headers = {
-        "Authorization": f"Bearer {INNOHASSLE_TOKEN}",
+        "Authorization": f"Bearer {TOKEN}",
         "Content-Type": "application/json"
     }
+    payload = {"filter": {"group_ids": [GROUP_ID]}, "limit": 50}
     
-    payload = {
-        "filter": {
-            "group_ids": [GROUP_ID]
-        },
-        "limit": 100
-    }
-
     try:
-        response = requests.post(API_URL, json=payload, headers=headers)
-        if response.status_code == 200:
-            return response.json().get('items', [])
+        r = requests.post(url, json=payload, headers=headers)
+        if r.status_code == 200:
+            return r.json().get('items', [])
+        print(f"Ошибка API: {r.status_code}")
         return None
     except:
         return None
 
-def format_schedule(events):
-    if not events:
-        return "❌ Ошибка получения данных или расписание пусто."
+@bot.message_handler(commands=['start', 'today'])
+def send_schedule(message):
+    items = get_data()
+    if items is None:
+        bot.send_message(message.chat.id, "❌ Ошибка. Скорее всего, протух токен в коде.")
+        return
 
     today = datetime.now().date()
-    today_events = []
+    res = []
+    for i in items:
+        dt = datetime.fromisoformat(i['start_time'].replace('Z', '+00:00'))
+        if dt.date() == today:
+            res.append(f"⏰ {dt.strftime('%H:%M')} - {i['name']}\n📍 {i.get('location', '???')}")
 
-    for event in events:
-        # Убираем 'Z' и парсим время
-        time_str = event['start_time'].replace('Z', '+00:00')
-        start_dt = datetime.fromisoformat(time_str)
-        
-        if start_dt.date() == today:
-            today_events.append({
-                "time": start_dt.strftime("%H:%M"),
-                "name": event.get('name', 'Занятие'),
-                "room": event.get('location', 'Аудитория не указана')
-            })
+    if not res:
+        bot.send_message(message.chat.id, "📅 На сегодня пар нет!")
+    else:
+        bot.send_message(message.chat.id, "📅 *Расписание на сегодня:*\n\n" + "\n\n".join(sorted(res)), parse_mode="Markdown")
 
-    if not today_events:
-        return "📅 На сегодня пар не найдено. Отдыхай!"
-
-    today_events.sort(key=lambda x: x['time'])
-
-    msg = f"📅 *Расписание на сегодня ({today.strftime('%d.%m')}):*\n\n"
-    for ev in today_events:
-        msg += f"⏰ `{ev['time']}` — *{ev['name']}*\n📍 {ev['room']}\n\n"
-    
-    return msg
-
-@bot.message_handler(commands=['start', 'today'])
-def send_today(message):
-    bot.send_chat_action(message.chat.id, 'typing')
-    events = get_schedule()
-    text = format_schedule(events)
-    bot.send_message(message.chat.id, text, parse_mode="Markdown")
-
-if __name__ == "__main__":
-    print("Бот запущен и готов к работе!")
-    bot.infinity_polling()
+bot.infinity_polling()
