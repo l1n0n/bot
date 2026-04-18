@@ -240,4 +240,15 @@ def send_date(message):
         return
     t.send_message(message.chat.id, toString(getCorrectDate()))
 
+@t.message_handler(commands=['game'])
+def game(message):
+    if not check_subscription(message):
+        return
+    field = [['.', '.', '.'], ['.', '.', '.'], ['.', '.', '.']]
+
+    def show_field():
+        t.send_message(message.chat.id, f'{*field[0]}{*field[1]}{*field[2]}')
+    
+    show_field()
+
 t.infinity_polling()
