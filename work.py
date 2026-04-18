@@ -247,7 +247,7 @@ def game(message):
     field = [['.', '.', '.'], ['.', '.', '.'], ['.', '.', '.']]
 
     def show_field():
-        t.send_message(message.chat.id, f'{''.join(field[0])}\n{''.join(field[1])}\n{''.join(field[2])}')
+        t.send_message(message.chat.id, f"{''.join(field[0])}\n{''.join(field[1])}\n{''.join(field[2])}")
     
     show_field()
 
