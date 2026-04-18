@@ -243,52 +243,115 @@ def send_date(message):
         return
     t.send_message(message.chat.id, toString(getCorrectDate()))
 
+# @t.message_handler(commands=['game'])
+# def game(message):
+#     if not check_subscription(message):
+#         return
+#     field = [['.', '.', '.'], ['.', '.', '.'], ['.', '.', '.']]
+
+#     t.send_message(message.chat.id, """Добро пожаловать на игру Крестики-нолики! Не хотите сыграть со мной? Правда, я пока плох в этом, но обещаю скоро научиться.\n
+#     Чтобы поставить крестик или нолик напишите в чат координаты, например, 2 1, где 2 - это номер ряда, 1 - это номер столбца.""")
+
+#     gameOver = False
+
+#     def check_field(s):
+#         nonlocal gameOver
+#         if field[0][0] == field[0][1] == field[0][2] == s or field[1][0] == field[1][1] == field[1][2] == s or field[2][0] == field[2][1] == field[2][2] == s or \
+#         field[0][0] == field[1][0] == field[2][0] == s or field[0][1] == field[1][1] == field[2][1] == s or field[0][2] == field[1][2] == field[2][2] == s or \
+#         field[0][0] == field[1][1] == field[2][2] == s or field[0][2] == field[1][1] == field[2][0] == s:
+#             return True
+#         return False
+    
+#     def show_field():
+#         t.send_message(message.chat.id, f"{''.join(field[0])}\n{''.join(field[1])}\n{''.join(field[2])}")
+    
+
+    # def process():
+    #     x, y = map(int, message.text.split())
+    #     try:
+    #         if 1 <= x <= 3 and 1 <= y <= 3 and field[x-1][y-1] != '.':
+    #             field[x-1][y-1] = 'X'
+    #             show_field()
+    #             if check_field('X'):
+    #                 t.send_message(message.chat.id, 'Game over')
+    #                 return
+    #             while True:
+    #                 xb = randint(0, 2)
+    #                 yb = randint(0, 2)
+    #                 if field[xb][yb] != '.':
+    #                     field[xb][yb] = 'O'
+    #                     break
+    #             show_field()
+    #             if check_field('O'):
+    #                 t.send_message(message.chat.id, 'Game over')
+    #                 return
+    #         else:
+    #             raise FieldException
+    #     except FieldException:
+    #         t.send_message(message.chat.id, 'Введите другую ячейку')
+    #         process()
+    # process()
+
+games = {}
+
+def check_field(field, s):
+    if field[0][0] == field[0][1] == field[0][2] == s or field[1][0] == field[1][1] == field[1][2] == s or field[2][0] == field[2][1] == field[2][2] == s or \
+    field[0][0] == field[1][0] == field[2][0] == s or field[0][1] == field[1][1] == field[2][1] == s or field[0][2] == field[1][2] == field[2][2] == s or \
+    field[0][0] == field[1][1] == field[2][2] == s or field[0][2] == field[1][1] == field[2][0] == s:
+        return True
+    return False
+
+def show_field_text(field):
+    return f"{''.join(field[0])}\n{''.join(field[1])}\n{''.join(field[2])}"
+
 @t.message_handler(commands=['game'])
-def game(message):
-    if not check_subscription(message):
-        return
-    field = [['.', '.', '.'], ['.', '.', '.'], ['.', '.', '.']]
+def start_game(message):
+    user_id = message.from_user.id
+    games[user_id] = {
+        'field': [['.' for _ in range(3)] for _ in range(3)],
+        'counter': 0
+    }
+    t.send_message(user_id, "Welcome to Tic Tac Toe game. Choose field to place X by entering coordinates in form 2 1, where 2 is row and 1 is column X will be placed")
+    t.send_message(user_id, show_field_text(games[user_id]['field']))
 
-    t.send_message(message.chat.id, """Добро пожаловать на игру Крестики-нолики! Не хотите сыграть со мной? Правда, я пока плох в этом, но обещаю скоро научиться.\n
-    Чтобы поставить крестик или нолик напишите в чат координаты, например, 2 1, где 2 - это номер ряда, 1 - это номер столбца.""")
-
-    gameOver = False
-
-    def check_field(s):
-        nonlocal gameOver
-        if field[0][0] == field[0][1] == field[0][2] == s or field[1][0] == field[1][1] == field[1][2] == s or field[2][0] == field[2][1] == field[2][2] == s or \
-        field[0][0] == field[1][0] == field[2][0] == s or field[0][1] == field[1][1] == field[2][1] == s or field[0][2] == field[1][2] == field[2][2] == s or \
-        field[0][0] == field[1][1] == field[2][2] == s or field[0][2] == field[1][1] == field[2][0] == s:
-            return True
-        return False
+@t.message_handler(func=lambda message: message.from_user.id in games)
+def handle_move(message):
+    user_id = message.from_user.id
+    game = games[user_id]
     
-    def show_field():
-        t.send_message(message.chat.id, f"{''.join(field[0])}\n{''.join(field[1])}\n{''.join(field[2])}")
-    
-    def process():
+    try:
         x, y = map(int, message.text.split())
-        try:
-            if 1 <= x <= 3 and 1 <= y <= 3 and field[x-1][y-1] != '.':
-                field[x-1][y-1] = 'X'
-                show_field()
-                if check_field('X'):
-                    t.send_message(message.chat.id, 'Game over')
-                    return
-                while True:
-                    xb = randint(0, 2)
-                    yb = randint(0, 2)
-                    if field[xb][yb] != '.':
-                        field[xb][yb] = 'O'
-                        break
-                show_field()
-                if check_field('O'):
-                    t.send_message(message.chat.id, 'Game over')
-                    return
-            else:
-                raise FieldException
-        except FieldException:
-            t.send_message(message.chat.id, 'Введите другую ячейку')
-            process()
-    process()
+        if not (1 <= x <= 3 and 1 <= y <= 3 and game['field'][x-1][y-1] == '.'):
+            t.send_message(user_id, "Enter another coordinates")
+            return
+    except:
+        t.send_message(user_id, "Enter coordinates in form 2 1")
+        return
+
+    game['field'][x-1][y-1] = 'X'
+    game['counter'] += 1
+
+    if check_field(game['field'], 'X'):
+        t.send_message(user_id, f"{show_field_text(game['field'])}\n\nX win")
+        del games[user_id]
+        return
+
+    if game['counter'] < 9:
+        xb, yb = randint(0, 2), randint(0, 2)
+        while game['field'][xb][yb] != '.':
+            xb, yb = randint(0, 2), randint(0, 2)
+        game['field'][xb][yb] = 'O'
+        game['counter'] += 1
+
+        if check_field(game['field'], 'O'):
+            t.send_message(user_id, f"{show_field_text(game['field'])}\n\nO win")
+            del games[user_id]
+            return
+
+    if game['counter'] == 9 and user_id in games:
+        t.send_message(user_id, f"{show_field_text(game['field'])}\n\nTie")
+        del games[user_id]
+    elif user_id in games:
+        t.send_message(user_id, show_field_text(game['field']))
 
 t.infinity_polling()
