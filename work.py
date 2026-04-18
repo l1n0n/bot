@@ -185,6 +185,10 @@ class Sunday:
                 dayIsOver = False
         return res + '\nНа сегодня занятия закончились! 🥳' if dayIsOver else res
 
+
+class FieldException(Exception):
+    pass
+
 days = {
     0: Monday(),
     1: Tuesday(),
@@ -194,7 +198,6 @@ days = {
     5: Saturday(),
     6: Sunday()
 }
-
 
 weekdays = 'Понедельник Вторник Среда Четверг Пятница Суббота Воскресенье'.split()
 
@@ -246,9 +249,46 @@ def game(message):
         return
     field = [['.', '.', '.'], ['.', '.', '.'], ['.', '.', '.']]
 
+    t.send_message(message.chat.id, """Добро пожаловать на игру Крестики-нолики! Не хотите сыграть со мной? Правда, я пока плох в этом, но обещаю скоро научиться.\n
+    Чтобы поставить крестик или нолик напишите в чат координаты, например, 2 1, где 2 - это номер ряда, 1 - это номер столбца.""")
+
+    gameOver = False
+
+    def check_field(s):
+        nonlocal gameOver
+        if field[0][0] == field[0][1] == field[0][2] == s or field[1][0] == field[1][1] == field[1][2] == s or field[2][0] == field[2][1] == field[2][2] == s or \
+        field[0][0] == field[1][0] == field[2][0] == s or field[0][1] == field[1][1] == field[2][1] == s or field[0][2] == field[1][2] == field[2][2] == s or \
+        field[0][0] == field[1][1] == field[2][2] == s or field[0][2] == field[1][1] == field[2][0] == s:
+            return True
+        return False
+    
     def show_field():
         t.send_message(message.chat.id, f"{''.join(field[0])}\n{''.join(field[1])}\n{''.join(field[2])}")
     
-    show_field()
+    def process():
+        x, y = map(int, message.text.split())
+        try:
+            if 1 <= x <= 3 and 1 <= y <= 3 and field[x-1][y-1] != '.':
+                field[x-1][y-1] = 'X'
+                show_field()
+                if check_field('X'):
+                    t.send_message(message.chat.id, 'Game over')
+                    return
+                while True:
+                    xb = randint(0, 2)
+                    yb = randint(0, 2)
+                    if field[xb][yb] != '.':
+                        field[xb][yb] = 'O'
+                        break
+                show_field()
+                if check_field('O'):
+                    t.send_message(message.chat.id, 'Game over')
+                    return
+            else:
+                raise FieldException
+        except FieldException:
+            t.send_message(message.chat.id, 'Введите другую ячейку')
+            process()
+    process()
 
 t.infinity_polling()
