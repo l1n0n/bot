@@ -226,7 +226,7 @@ def getCorrectDate():
     new = datetime.fromtimestamp(old)
     return new
 
-@t.message_handler(commands=['/subscribers'])
+@t.message_handler(commands=['subscribers'])
 def subscribers(message):
     with open('subscribers.json', 'r', encoding='utf-8') as file:
         r = dict(loads(file))
