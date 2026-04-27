@@ -4,7 +4,7 @@ from telebot import TeleBot
 from dotenv import load_dotenv
 from datetime import datetime
 from time import *
-from json import load, dump
+from json import loads
 
 load_dotenv()
 t = TeleBot(os.getenv('BOT_TOKEN'))
@@ -229,7 +229,7 @@ def getCorrectDate():
 @t.message_handler(commands=['/subscribers'])
 def subscribers(message):
     with open('subscribers.json', 'r', encoding='utf-8') as file:
-        r = load(file)
+        r = dict(loads(file))
         t.send_message(message.chat.id, r)
 
 @t.message_handler(commands=['start'])
