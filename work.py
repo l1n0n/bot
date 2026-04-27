@@ -234,7 +234,7 @@ def subscribers(message):
         res = ''
         for key in r:
             res += f'{key}\n'
-        t.send_message(message.chat.id, res)
+        t.send_message(message.chat.id, type(r))
 
 @t.message_handler(commands=['start'])
 def start(message):
