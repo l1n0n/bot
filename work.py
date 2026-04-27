@@ -229,8 +229,12 @@ def getCorrectDate():
 @t.message_handler(commands=['subscribers'])
 def subscribers(message):
     with open('subscribers.json', 'r', encoding='utf-8') as file:
-        r = loads(file)
-        t.send_message(message.chat.id, type(r))
+        f = file.read()
+        r = loads(f)
+        res = ''
+        for key, value in r:
+            res += f'{key} - {value}\n'
+        t.send_message(message.chat.id, res)
 
 @t.message_handler(commands=['start'])
 def start(message):
