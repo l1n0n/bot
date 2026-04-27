@@ -232,9 +232,9 @@ def subscribers(message):
         f = file.read()
         r = loads(f)
         res = ''
-        for key in r:
-            res += f'{key}\n'
-        t.send_message(message.chat.id, f'{type(r)}')
+        for key, value in r.items():
+            res += f'{key} - {value}\n'
+        t.send_message(message.chat.id, res)
 
 @t.message_handler(commands=['start'])
 def start(message):
