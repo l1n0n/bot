@@ -6,3 +6,6 @@ services:
     environment:
       - PYTELEBOT_LOGS=True
     restart: unless-stopped
+    dns:
+      - 8.8.8.8
+      - 77.88.8.8
